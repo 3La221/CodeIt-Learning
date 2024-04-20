@@ -16,21 +16,11 @@ function App() {
   return (
     <div >
     <Router>
-      <Routes>
-        
-
+      <Routes basename="/CodeIt-Learning">
           <Route path='/' element={ <Home /> }/>
           <Route path="/register/" element={<Register/>} />
           <Route path="/login/" element={<Login/>} />
-          <Route path='/formations/:profileId' element={<ProetectedRoutes>
-          <MesFormations/>
-        </ProetectedRoutes>
-      
-      }/>
-          {/* 
-          
-          <Route path="/post/:postId" element={<ProtectedRoute> <SinglePost/> </ProtectedRoute>}/>
-          <Route path="/profile/:profileId" element={<ProtectedRoute> <Profile/> </ProtectedRoute>}/> */}
+          <Route path='/formations/:profileId' element={<ProetectedRoutes><MesFormations/></ProetectedRoutes>}/>
       </Routes>
     </Router>
 

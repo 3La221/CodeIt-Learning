@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 
 // function useUserActions() {
 //   const baseURL = "http://localhost:8000/api";
@@ -29,6 +30,7 @@
   // Logout the user
   function logout(navigate) {
     localStorage.removeItem("auth");
+    Cookies.remove('formation');
     navigate("/login");
   }
   

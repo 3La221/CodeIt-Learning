@@ -23,7 +23,7 @@ const Formations = () => {
 
 
   return (
-    <div className="flex flex-col justify-center items-center ">
+    <div className="flex flex-col justify-center items-center">
       <h1 className="max-w-2xl  text-4xl font-extrabold text-[#35374B] my-8">Nos Formations</h1> 
       <div className="flex flex-wrap justify-center mb-8 gap-8 ">
         {

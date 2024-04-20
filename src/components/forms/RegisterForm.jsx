@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
-
+import Cookies from 'js-cookie';
+import axiosService from '../../helpers/axios';
 
 
 const RegisterForm = () => {
@@ -45,7 +46,25 @@ const RegisterForm = () => {
                 refresh : res.data.refresh,
                 user_id : res.data.id 
             }))
-            navigate('/')
+            const cookieValue = Cookies.get('formation');
+            if(cookieValue){
+
+              axiosService.post(`/subscribe/${cookieValue}/`)
+            .then((res2)=>{
+            navigate(`/formations/${res.data.id}/`)
+            Cookies.remove('formation');
+
+            })
+          .catch((err2)=>{
+            navigate(`/`)
+            Cookies.remove('formation');
+
+
+              })
+
+            }else{
+              navigate('/')
+            }
         })
         .catch((err)=>{
             console.log('err',err.request.response)

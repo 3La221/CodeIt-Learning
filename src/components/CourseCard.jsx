@@ -3,11 +3,13 @@ import { getUser } from '../helpers/actions'
 import { useState } from 'react'
 import Modal from './modals/Modal'
 import ConfirmationModal from './modals/ConfirmationModal'
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom'
+
 
 const CourseCard = ({formation }) => {
     const user = getUser()
 
-    console.log("KEY",formation.id)
     const [isOpen, setIsOpen] = useState(false);
     const [isCMlOpen , setIsCMlOpen] = useState(false)
 
@@ -29,6 +31,14 @@ const CourseCard = ({formation }) => {
     setIsOpen(false);
 };
 
+const navigate = useNavigate()
+
+const login = () => {
+    Cookies.set('formation', formation.id);
+    navigate('/login/')
+
+
+}
 
 
 
@@ -36,10 +46,10 @@ const CourseCard = ({formation }) => {
 
 return (
     <div className="max-w-sm bg-white border border-gray-200
-    rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
-    <a href="#">
-        <img className="rounded-t-lg" src={`https://ai2dz.com/CodeItBack/${formation.image}`} alt="" />
-    </a>
+    rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 w-96 ">
+    <div className='w-148 h-72'>
+        <img className="rounded-t-lg h-full w-full" src={`https://ai2dz.com/CodeItBack/${formation.image}`} alt="" />
+    </div>
     <div className="p-5">
         <a href="#">
             <h5 className="mb-2 text-2xl font-bold text-center tracking-tight text-gray-900 dark:text-white">{formation.title}</h5>
@@ -51,20 +61,14 @@ return (
         
         
 
-        { user ?  <button  onClick={openConfirmationModal}   className="inline-flex
+        <button  onClick={ user ? openConfirmationModal : login}   className="inline-flex
         items-center px-3 py-2 
         text-sm font-medium text-center text-white bg-[#35374B] 
         rounded-lg hover:bg-[#344955] focus:ring-4 focus:outline-none
         focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 
         dark:focus:ring-blue-800">
             Participer
-        </button> :  <a  href='/login/'   className="inline-flex items-center px-3 py-2 
-        text-sm font-medium text-center text-white bg-[#35374B] 
-        rounded-lg hover:bg-[#344955] focus:ring-4 focus:outline-none
-        focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 
-        dark:focus:ring-blue-800">
-            Participer
-        </a> }
+        </button> 
         <button onClick={openModal}  className="
         inline-flex items-center px-3 py-2 
         text-sm font-medium text-center text-white bg-[#35374B] 
@@ -73,6 +77,7 @@ return (
         dark:focus:ring-blue-800 mx-3" type="button">
             Details 
         </button>
+
         {isOpen && <Modal closeModal={closeModal} desc={formation.desc} formation={formation.title} />}
         {isCMlOpen && <ConfirmationModal closeConfirmationModal={closeConfirmationModal}  id={formation.id}/>}
     </div>

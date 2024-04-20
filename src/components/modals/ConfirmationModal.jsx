@@ -1,19 +1,21 @@
 import React from 'react';
 import { getUser } from '../../helpers/actions';
 import axiosService from '../../helpers/axios';
+import { useNavigate } from 'react-router-dom';
 
 const ConfirmationModal = ({ closeConfirmationModal , id }) => {
 
     const user = getUser() 
+    const navigate = useNavigate()
     const handlSubmit = () => {
         axiosService.post(`/subscribe/${id}/`)
         .then((res)=>{
             console.log("RES",res)
-            window.location.reload();
 
+            navigate(`/formations/${user}`)
         })
-        .catch(()=>{
-
+        .catch((err)=>{
+            window.location.reload();
         })
     }
     return (
